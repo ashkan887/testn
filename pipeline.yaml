@@ -1,0 +1,46 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  # Install Node.js
+  - task: UseNode@1
+    inputs:
+      version: '16.x'
+
+  # Install dependencies (if any)
+  - script: |
+      npm install
+    displayName: 'Install dependencies'
+
+  # Run tests (optional, can be skipped if not needed)
+  - script: |
+      npm test
+    displayName: 'Run tests'
+
+  # Archive files for deployment
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/greet.zip'
+      replaceExistingArchive: true
+
+  # Publish the artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/greet.zip'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+  # Deploy to Azure Web App
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: '<Your Azure Subscription Name>'
+      appName: '<Your Azure Web App Name>'
+      package: '$(Build.ArtifactStagingDirectory)/greet.zip'

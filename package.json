@@ -1,0 +1,18 @@
+{
+  "name": "greet",
+  "version": "1.0.0",
+  "description": "Testing Azure YAML",
+  "main": "greet.js",
+  "type": "module",
+  "scripts": {
+    "start": "node greet.js",
+    "build": "echo 'No build step necessary'",
+    "test": "mocha ../test/*.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3"
+  }
+}
