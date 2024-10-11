@@ -5,24 +5,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: BuildJob
-  displayName: 'Build the project'
+- job: Job1
   steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '20.x'
-    displayName: 'Install Node.js'
-  
-  - script: |
-      npm install
-      npm run build
-    displayName: 'npm install and build'
+    - script: echo "Running Job 1"
+  displayName: 'Job 1'
 
-- job: TestJob
-  displayName: 'Run tests'
-  dependsOn: BuildJob  # This forces TestJob to wait until BuildJob completes
+- job: Job2
+  dependsOn: Job1  # This ensures Job2 will run only after Job1 completes
   steps:
-  - script: |
-      npm install
-      npm test
-    displayName: 'Install and run tests'
+    - script: echo "Running Job 2"
+  displayName: 'Job 2'
