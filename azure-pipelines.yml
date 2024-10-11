@@ -9,9 +9,3 @@ jobs:
   steps:
     - script: echo "Running Job 1"
   displayName: 'Job 1'
-
-- job: Job2
-  dependsOn: Job1  # This ensures Job2 will run only after Job1 completes
-  steps:
-    - script: echo "Running Job 2"
-  displayName: 'Job 2'
