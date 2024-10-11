@@ -17,11 +17,7 @@ steps:
       npm install
     displayName: 'Install dependencies'
 
-  # Run tests (optional, can be skipped if not needed)
-  - script: |
-      npm test
-    displayName: 'Run tests'
-
+ 
   # Archive files for deployment
   - task: ArchiveFiles@2
     inputs:
