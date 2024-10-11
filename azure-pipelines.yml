@@ -1,11 +1,46 @@
 trigger:
-- master
+  branches:
+    include:
+      - main
 
 pool:
   vmImage: 'ubuntu-latest'
 
-jobs:
-- job: Job1
-  steps:
-    - script: echo "Running Job 1"
-  displayName: 'Job 1'
+steps:
+  # Install Node.js
+  - task: UseNode@1
+    inputs:
+      version: '16.x'
+
+  # Install dependencies (if any)
+  - script: |
+      npm install
+    displayName: 'Install dependencies'
+
+  # Run tests (optional, can be skipped if not needed)
+  - script: |
+      npm test
+    displayName: 'Run tests'
+
+  # Archive files for deployment
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/greet.zip'
+      replaceExistingArchive: true
+
+  # Publish the artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/greet.zip'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+  # Deploy to Azure Web App
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: 'MyServiceConnection'
+      appName: 'app1'
+      package: '$(Build.ArtifactStagingDirectory)/greet.zip'
