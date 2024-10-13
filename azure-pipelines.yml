@@ -34,9 +34,9 @@ steps:
       ArtifactName: 'drop'
       publishLocation: 'Container'
 
-  # Deploy to Azure Web App
   - task: AzureWebApp@1
     inputs:
-      azureSubscription: 'MyServiceConnection'
-      appName: 'app1'
-      package: '$(Build.ArtifactStagingDirectory)/greet.zip'
+      azureSubscription: 'MyServiceConnection'  # You will configure this in the portal
+      appType: 'webAppLinux'                               # Use 'webApp' for Windows, 'webAppLinux' for Linux
+      appName: 'MyGreetApp'                                # Your Azure Web App name
+      package: '$(Build.ArtifactStagingDirectory)/greet.zip'         # This is the directory where the app is located
