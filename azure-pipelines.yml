@@ -19,6 +19,7 @@ steps:
 
  # Run tests
   - script: |
+      chmod +x ./node_modules/.bin/jest
       npm test
     displayName: 'Run tests'
     
