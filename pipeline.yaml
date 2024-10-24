@@ -41,6 +41,6 @@ steps:
   # Deploy to Azure Web App
   - task: AzureWebApp@1
     inputs:
-      azureSubscription: '<Your Azure Subscription Name>'
-      appName: '<Your Azure Web App Name>'
+      azureSubscription: 'Azure subscription 1'
+      appName: 'app1'
       package: '$(Build.ArtifactStagingDirectory)/greet.zip'

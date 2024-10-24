@@ -1,0 +1,12 @@
+{
+  "testEnvironment": "node",
+  "testMatch": ["**/?(*.)+(spec|test).[jt]s?(x)"],
+  "moduleFileExtensions": ["js", "json", "jsx", "ts", "tsx", "node"],
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["json", "lcov", "text", "clover"],
+  "verbose": true
+}

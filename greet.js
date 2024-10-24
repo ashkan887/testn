@@ -1,23 +1,14 @@
-// Import the required module
-import readline from 'readline';
+// greet.js
 
-// Create an interface for reading input from the console
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-// Function to greet the user
-export function greet() {
-    rl.question('Enter first parameter (param1): ', (param1) => {
-        rl.question('Enter second parameter (param2): ', (param2) => {
-            console.log(`Hi ${param1}, this is ${param2}`);
-            rl.close();
-        });
-    });
+// The function that takes in a name and greeting
+export function greet(name, greeting) {
+    return `${greeting}, ${name}!`;
 }
 
-// Optionally, you can call greet() immediately if you want to prompt on file execution
-if (import.meta.url === 'file://' + process.argv[1]) {
-    greet();
+// If the file is run directly from the command line
+if (process.argv[1].includes('greet.js')) {
+    const args = process.argv.slice(2);
+    const name = args[0];
+    const greeting = args[1];
+    console.log(greet(name, greeting));
 }
