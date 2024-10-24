@@ -17,7 +17,11 @@ steps:
       npm install
     displayName: 'Install dependencies'
 
- 
+ # Run tests
+  - script: |
+      npm test
+    displayName: 'Run tests'
+    
   # Archive files for deployment
   - task: ArchiveFiles@2
     inputs:
@@ -33,10 +37,3 @@ steps:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/greet.zip'
       ArtifactName: 'drop'
       publishLocation: 'Container'
-
-  - task: AzureWebApp@1
-    inputs:
-      azureSubscription: 'MyServiceConnection'  # You will configure this in the portal
-      appType: 'webAppLinux'                               # Use 'webApp' for Windows, 'webAppLinux' for Linux
-      appName: 'MyGreetApp'                                # Your Azure Web App name
-      package: '$(Build.ArtifactStagingDirectory)/greet.zip'         # This is the directory where the app is located
